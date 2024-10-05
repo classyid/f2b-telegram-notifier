@@ -1,41 +1,25 @@
-# Fail2Ban IP Blocking Notification Script
+# f2b-telegram-notifier
 
-This script helps system administrators monitor IP addresses blocked by Fail2Ban and sends the list of blocked IPs along with their geolocation to a Telegram bot.
+## Deskripsi
+`f2b-telegram-notifier` adalah bash script yang berfungsi untuk mengirim laporan IP yang diblokir oleh Fail2Ban ke bot Telegram. Script ini juga menampilkan informasi sistem dan IP jaringan server, serta menambahkan lokasi geolokasi berdasarkan IP yang diblokir. Hasil laporan dikirim dalam bentuk teks dan file `.txt` melalui bot Telegram, dilengkapi dengan timestamp.
 
-### Features:
-- Sends system information and network IPs to a Telegram bot.
-- Lists all IP addresses blocked by Fail2Ban.
-- Shows geolocation of each IP address.
-- Provides a summary and the total count of blocked IPs.
-- Sends the detailed list in a text file to the Telegram bot.
+## Fitur
+- Menampilkan informasi sistem dan IP jaringan
+- Mengambil IP yang diblokir oleh Fail2Ban
+- Menggunakan GeoIP untuk menentukan lokasi dari IP yang diblokir
+- Mengirimkan laporan ke bot Telegram sebagai teks dan file `.txt`
+- Menyertakan timestamp pada laporan
 
-### Requirements:
+## Kebutuhan Paket Linux
+Agar script berjalan dengan baik, beberapa paket harus terpasang di server Anda:
+- `iptables`
+- `geoip-bin`
+- `fail2ban`
+- `curl`
 
-Make sure the following packages are installed on your Linux server:
+### Instalasi Paket yang Dibutuhkan
+Untuk menginstal paket-paket yang dibutuhkan di sistem berbasis Debian/Ubuntu, jalankan perintah berikut:
 
-1. **`iptables`**: To retrieve blocked IPs by Fail2Ban.
-   ```bash
-   sudo apt-get install iptables
-geoip-bin: To fetch geolocation data based on the IP addresses.
-sudo apt-get install geoip-bin
-sudo apt-get install fail2ban
-Setup:
-Create a bot using BotFather and get the BOT_TOKEN.
-Find your chat ID by messaging the bot and accessing the Telegram Bot API via the following URL:
-bash
-Copy code
-https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
-Update the script by replacing:
-BOT_TOKEN="" with your actual bot token.
-CHAT_ID="" with your Telegram chat ID.
-How to Use:
-Clone this repository.
-Make the script executable:
-bash
-Copy code
-chmod +x f2bstat.sh
-Run the script:
-bash
-Copy code
-./f2bstat.sh
-The script will send a Telegram message containing system and network information, along with a summary of blocked IPs. It will also upload a .txt file with the detailed list of blocked IPs and their locations.
+```bash
+sudo apt-get update
+sudo apt-get install iptables geoip-bin fail2ban curl
